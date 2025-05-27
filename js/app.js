@@ -19,9 +19,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctx = canvas.getContext('2d');
     function resizeCanvas() {
     const container = document.getElementById('gameContainer');
-    canvas.width = container.clientWidth;
-    canvas.height = container.clientHeight;
+    const dpr = window.devicePixelRatio || 1;
+
+    const padding = 20; // 10px de chaque côté
+
+    canvas.width = (container.clientWidth - padding) * dpr;
+    canvas.height = (container.clientHeight - padding) * dpr;
+
+    canvas.style.width = (container.clientWidth - padding) + "px";
+    canvas.style.height = (container.clientHeight - padding) + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
+
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas(); // Appel initial
 
