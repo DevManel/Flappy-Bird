@@ -17,6 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
+    function resizeCanvas() {
+    const container = document.getElementById('gameContainer');
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+}
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas(); // Appel initial
+
     const startButton = document.getElementById('startButton');
     const gameOverScreen = document.getElementById('gameOverScreen');
     const restartButton = document.getElementById('restartButton');
@@ -145,6 +153,14 @@ document.addEventListener('DOMContentLoaded', () => {
             bird.flap();
         }
     });
+
+    canvas.addEventListener("touchstart", (e) => {
+        e.preventDefault(); // Empêche le scroll sur mobile
+        if (!gameOver) {
+            bird.flap();
+        }
+    }, { passive: false });
+
 
     function loop() {
         ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
